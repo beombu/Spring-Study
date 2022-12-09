@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-//토근의 생성, 토근의 유효성 검증을 당담하는 provider
+//토근의 생성, 토근의 유효성 검증을 담당하는 provider
 @Component
 public class TokenProvider implements InitializingBean {//InitializingBean 인터페이스의 afterPropertiesSet() 메소드에 빈 객체 초기화 시 필요한 코드 구현
 
