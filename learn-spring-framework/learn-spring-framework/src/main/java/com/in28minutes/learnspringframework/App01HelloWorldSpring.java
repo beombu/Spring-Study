@@ -2,6 +2,8 @@ package com.in28minutes.learnspringframework;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Arrays;
+
 public class App01HelloWorldSpring {
     public static void main(String[] args) {
         //spring framework의 어노테이션컴피그어플리캐이션컨텍스트를 활용해 스프링 빈들을 스프링에서 관리하도록 적용한다.
@@ -20,5 +22,8 @@ public class App01HelloWorldSpring {
         System.out.println(context.getBean("person3Parameters"));
 
         System.out.println(context.getBean("customAddress"));
+
+        Arrays.stream(context.getBeanDefinitionNames())
+                .forEach(System.out::println);
     }
 }
