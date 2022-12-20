@@ -1,7 +1,9 @@
 package com.in28minutes.learnspringframework;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * recode는 class의 중복되는 기본적인 코드들을 간결하게 사용하기 위해 등장하였다.
@@ -43,12 +45,28 @@ public class HelloWorldConfiguration {
         return new Person(name, age, customAddress3);
     }
 
+    @Bean
+    public Person person4Parameters(String name, int age, Address address){
+        return new Person(name, age, address);
+    }
+
+    @Bean
+    public Person person5Qualifier(String name, int age, @Qualifier("address3qualifier")Address address){
+        return new Person(name, age, address);
+    }
+
+    //@Primary를 통해 스트링 빈의 기본값을 설정해준다.
+    //그럼 동일한 스프링 빈이 여러개일 경우 @Primary를 우선순위로 찾는다.
     @Bean(name = "customAddress")
+    @Primary
     public Address address() {
         return new Address("서울특별시", "노원구");
     }
 
+    //@Qualifier어노테이션을 통해 @Primary가 아닌 예외 스프링빈을 설정한다.
+    //해당 스프링빈은 사용시 @Qualifier를 통해 명시하여 사용한다.
     @Bean(name = "customAddress3")
+    @Qualifier("address3qualifier")
     public Address address3() {
         return new Address("강원도", "속초시");
     }

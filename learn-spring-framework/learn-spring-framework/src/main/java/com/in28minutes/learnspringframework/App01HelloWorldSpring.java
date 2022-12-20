@@ -23,7 +23,11 @@ public class App01HelloWorldSpring {
 
         System.out.println(context.getBean("customAddress"));
 
-        Arrays.stream(context.getBeanDefinitionNames())
-                .forEach(System.out::println);
+        System.out.println(context.getBean(Address.class));
+
+        System.out.println(context.getBean("person5Qualifier"));
+
+//        Arrays.stream(context.getBeanDefinitionNames())
+//                .forEach(System.out::println);
     }
 }
