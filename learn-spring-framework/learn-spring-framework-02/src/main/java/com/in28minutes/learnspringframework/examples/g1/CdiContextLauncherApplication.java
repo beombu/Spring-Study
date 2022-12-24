@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-class BusinessService{
+class BusinessService {
     private DataService dataService;
 
     @Autowired
@@ -26,7 +26,7 @@ class BusinessService{
 }
 
 @Component
-class DataService{
+class DataService {
 
 }
 
@@ -36,8 +36,8 @@ public class CdiContextLauncherApplication {
 
     public static void main(String[] args) {
 
-        try(var context =
-                    new AnnotationConfigApplicationContext(CdiContextLauncherApplication.class)){
+        try (var context =
+                     new AnnotationConfigApplicationContext(CdiContextLauncherApplication.class)) {
 
             Arrays.stream(context.getBeanDefinitionNames())
                     .forEach(System.out::println);

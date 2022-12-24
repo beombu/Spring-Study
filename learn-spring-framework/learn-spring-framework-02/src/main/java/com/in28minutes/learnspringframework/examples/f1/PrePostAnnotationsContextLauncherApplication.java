@@ -10,7 +10,7 @@ import javax.annotation.PreDestroy;
 import java.util.Arrays;
 
 @Component
-class SomeClass{
+class SomeClass {
     private SomeDependency someDependency;
 
     public SomeClass(SomeDependency someDependency) {
@@ -19,20 +19,20 @@ class SomeClass{
     }
 
     @PostConstruct
-    public void initialize(){
+    public void initialize() {
         someDependency.getReady();
     }
 
     @PreDestroy
-    public void cleanup(){
+    public void cleanup() {
         System.out.println("Clean up");
     }
 }
 
 @Component
-class SomeDependency{
+class SomeDependency {
 
-    public void getReady(){
+    public void getReady() {
         System.out.println("Some logic using SomeDependency");
 
     }
@@ -44,8 +44,8 @@ public class PrePostAnnotationsContextLauncherApplication {
 
     public static void main(String[] args) {
 
-        try(var context =
-                    new AnnotationConfigApplicationContext(PrePostAnnotationsContextLauncherApplication.class)){
+        try (var context =
+                     new AnnotationConfigApplicationContext(PrePostAnnotationsContextLauncherApplication.class)) {
 
             Arrays.stream(context.getBeanDefinitionNames())
                     .forEach(System.out::println);

@@ -6,16 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
-class ClassA{
+class ClassA {
 
 }
 
 @Component
 @Lazy
-class ClassB{
+class ClassB {
     private ClassA classA;
 
     public ClassB(ClassA classA) {
@@ -23,7 +21,7 @@ class ClassB{
         this.classA = classA;
     }
 
-    public void doSomething(){
+    public void doSomething() {
         System.out.println("Do Something");
     }
 }
@@ -34,8 +32,8 @@ public class LazyInitializationLauncherApplication {
 
     public static void main(String[] args) {
 
-        try(var context =
-                    new AnnotationConfigApplicationContext(LazyInitializationLauncherApplication.class)) {
+        try (var context =
+                     new AnnotationConfigApplicationContext(LazyInitializationLauncherApplication.class)) {
 
             context.getBean(ClassB.class).doSomething();
         }

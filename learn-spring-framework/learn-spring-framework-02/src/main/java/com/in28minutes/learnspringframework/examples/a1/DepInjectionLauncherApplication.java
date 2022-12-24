@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 
 @Component
-class YourBusinessClass{
+class YourBusinessClass {
 
     //필드 주입
     //@Autowired
@@ -37,18 +37,18 @@ class YourBusinessClass{
 //        this.dependency2 = dependency2;
 //    }
 
-    public String toString(){
+    public String toString() {
         return "Using " + dependency1 + " and " + dependency2;
     }
 }
 
 @Component
-class Dependency1{
+class Dependency1 {
 
 }
 
 @Component
-class Dependency2{
+class Dependency2 {
 
 }
 
@@ -58,8 +58,8 @@ public class DepInjectionLauncherApplication {
 
     public static void main(String[] args) {
 
-        try(var context =
-                    new AnnotationConfigApplicationContext(DepInjectionLauncherApplication.class)){
+        try (var context =
+                     new AnnotationConfigApplicationContext(DepInjectionLauncherApplication.class)) {
 
             Arrays.stream(context.getBeanDefinitionNames())
                     .forEach(System.out::println);
