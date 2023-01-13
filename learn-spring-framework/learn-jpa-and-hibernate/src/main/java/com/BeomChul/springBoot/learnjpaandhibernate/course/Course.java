@@ -1,8 +1,17 @@
 package com.BeomChul.springBoot.learnjpaandhibernate.course;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Course {
+    @Id
     private long id;
+
+    //@Column(name="name")
     private String name;
+
+    //@Column(name = "author")
     private String author;
 
 
