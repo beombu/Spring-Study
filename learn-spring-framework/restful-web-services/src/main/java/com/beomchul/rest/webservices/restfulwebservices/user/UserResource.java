@@ -21,7 +21,7 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-    public void createUser(@RequestBody User user){
+    public void createUser(@RequestBody User user) {
 
     }
 }
