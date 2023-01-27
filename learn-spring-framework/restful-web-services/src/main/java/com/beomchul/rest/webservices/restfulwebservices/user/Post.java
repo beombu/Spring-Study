@@ -17,7 +17,7 @@ import javax.validation.constraints.Min;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Min(10)
