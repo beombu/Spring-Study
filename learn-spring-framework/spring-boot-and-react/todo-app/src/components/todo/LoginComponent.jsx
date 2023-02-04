@@ -5,7 +5,7 @@ import { useAuth } from './security/AuthContext';
 function LoginComponent() {
     const [username, setUsername] = useState('beom');
     const [password, setPassword] = useState('');
-    const [showSeccessMessage, setShowSuccessMessage] = useState(false);
+    const [showSeccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const navigate = useNavigate();
     const authContext = useAuth();
@@ -19,16 +19,9 @@ function LoginComponent() {
     }
 
     function handleSubmit() {
-        if (username === 'beom' && password === '123') {
-            console.log('success');
-            setShowSuccessMessage(true);
-            setShowErrorMessage(false);
+        if (authContext.login(username, password)) {
             navigate(`/welcome/${username}`);
-            authContext.setAuthenticated(true);
         } else {
-            authContext.setAuthenticated(false);
-            console.log('failed');
-            setShowSuccessMessage(false);
             setShowErrorMessage(true);
         }
     }

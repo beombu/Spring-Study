@@ -5,9 +5,21 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
-    const [number, setNumber] = useState(0);
-
     const [isAuthenticated, setAuthenticated] = useState(false);
 
-    return <AuthContext.Provider value={{ number, isAuthenticated, setAuthenticated }}>{children}</AuthContext.Provider>;
+    function login(username, password) {
+        if (username === 'beom' && password === '123') {
+            setAuthenticated(true);
+            return true;
+        } else {
+            setAuthenticated(false);
+            return false;
+        }
+    }
+
+    function logout() {
+        setAuthenticated(false);
+    }
+
+    return <AuthContext.Provider value={{ isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
 }
