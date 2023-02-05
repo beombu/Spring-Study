@@ -5,17 +5,21 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 @Configuration
-public class SpringSecurityConfiguration {
+public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public InMemoryUserDetailsManager createUserDetailsManager(){
@@ -46,14 +50,31 @@ public class SpringSecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests(
-                auth -> auth.anyRequest().authenticated());
+    @Override
+    protected void configure(HttpSecurity http) throws Exception{
+        http
+                .httpBasic().disable()
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .authorizeRequests(
+                        auth -> auth.anyRequest().authenticated()
+                );
         http.formLogin(withDefaults());
         http.csrf().disable();
         http.headers().frameOptions().disable();
+    }
 
-        return http.build();
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
