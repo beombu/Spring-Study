@@ -8,7 +8,7 @@ public class HelloWorldController {
 	@GetMapping(path = "/hello-world")
 	//@CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET) //특정 url에 cors에러 해결법
 	public String helloWorld() {
-		return "Hello World";
+		return "Hello World v2";
 	}
 
 	@GetMapping(path = "/hello-world-bean")

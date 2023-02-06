@@ -54,10 +54,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .httpBasic().disable()
-                .cors().configurationSource(corsConfigurationSource())
+                .cors()//.configurationSource(corsConfigurationSource())
                 .and()
                 .authorizeRequests(
-                        auth -> auth.anyRequest().authenticated()
+                        auth -> auth.anyRequest().permitAll()
                 );
         http.formLogin(withDefaults());
         http.csrf().disable();
@@ -68,8 +68,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        //config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList("*"));
         config.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         config.setAllowedHeaders(Arrays.asList("*"));
 

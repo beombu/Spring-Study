@@ -1,8 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useState } from 'react';
 
 function WelcomeComponent() {
     const { username } = useParams();
+    const [message, setMessage] = useState(null);
 
     function callHelloWorldRestApi() {
         console.log('called');
@@ -16,6 +18,7 @@ function WelcomeComponent() {
 
     function successfulResponse(response) {
         console.log(response);
+        setMessage(response.data);
     }
 
     function errorResponse(response) {
@@ -33,6 +36,7 @@ function WelcomeComponent() {
                     Hello World Rest API 호출버튼
                 </button>
             </div>
+            <div className="text-info">{message}</div>
         </div>
     );
 }
