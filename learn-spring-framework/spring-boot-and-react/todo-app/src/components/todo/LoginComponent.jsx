@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './security/AuthContext';
 
 function LoginComponent() {
-    const [username, setUsername] = useState('beom');
+    const [username, setUsername] = useState('beomchul');
     const [password, setPassword] = useState('');
     const [showSeccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
