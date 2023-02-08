@@ -2,10 +2,7 @@ package com.beomchul.springboot.mywebapp.todo;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class TodoResource {
     }
 
     @GetMapping("/users/{username}/todos/{id}")
-    public Todo retrieveTodos(@PathVariable String username, @PathVariable int id){
+    public Todo retrieveTodo(@PathVariable String username, @PathVariable int id){
         return todoService.findById(id);
     }
 
