@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
+//@Controller
 @SessionAttributes("name")
 public class TodoControllerJpa {
     private TodoRepository todoRepository;

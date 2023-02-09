@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { retrieveAllTodosForUsernameApi, deleteTodoApi } from './api/TodoApiService';
+import { retrieveAllTodosForUsernameApi, deleteTodoApi, retrieveTodoApi } from './api/TodoApiService';
 import { useAuth } from './security/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ function ListTodosComponent() {
 
     function refreshTodos() {
         retrieveAllTodosForUsernameApi(username).then((respone) => {
-            console.log(respone.data);
+            //console.log(respone.data);
             setTodos(respone.data);
         });
     }
@@ -33,11 +33,15 @@ function ListTodosComponent() {
     }
 
     function updateTodo(id) {
-        deleteTodoApi(username, id)
+        retrieveTodoApi(username, id)
             .then(() => {
                 navigate(`/todo/${id}`);
             })
             .catch((error) => console.log(error));
+    }
+
+    function addNewTodo() {
+        navigate(`/todo/-1`);
     }
 
     return (
@@ -83,6 +87,9 @@ function ListTodosComponent() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="btn btn-success m-5" onClick={addNewTodo}>
+                Todo 추가
             </div>
         </div>
     );
