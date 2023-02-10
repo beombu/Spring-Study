@@ -20,6 +20,7 @@ function LoginComponent() {
 
     async function handleSubmit() {
         if (await authContext.login(username, password)) {
+            console.log('이거 탔니??');
             navigate(`/welcome/${username}`);
         } else {
             setShowErrorMessage(true);
