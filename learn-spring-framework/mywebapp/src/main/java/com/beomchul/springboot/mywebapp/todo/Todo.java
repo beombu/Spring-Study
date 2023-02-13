@@ -20,7 +20,7 @@ public class Todo {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String username;
 
     @Size(min = 5, message = "최소 5자이상 입력력")
