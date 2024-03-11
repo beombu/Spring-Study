@@ -1,35 +1,31 @@
-package hello.advanced.app.trace.logtrace;
+package hello.advanced.trace.hellotrace;
 
-import hello.advanced.app.trace.TraceId;
-import hello.advanced.app.trace.TraceStatus;
+import hello.advanced.trace.TraceId;
+import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.stereotype.Component;
+
 @Slf4j
-public class FieldLogTrace implements LogTrace {
+@Component
+public class HelloTraceV1 {
 	private static final String START_PREFIX = "-->";
 	private static final String COMPLETE_PREFIX = "<--";
 	private static final String EX_PREFIX = "<X-";
 
-	private TraceId traceIdHolder; //traceId 동기화, 동시성 이슈 발생
-
-	@Override
 	public TraceStatus begin(String message) {
-		syncTraceId();
-		TraceId traceId = traceIdHolder;
-		long startTimeMs = System.currentTimeMillis();
-
+		TraceId traceId = new TraceId();
+		Long startTimeMs = System.currentTimeMillis();
 		log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX,
 			traceId.getLevel()), message);
 
 		return new TraceStatus(traceId, startTimeMs, message);
 	}
 
-	@Override
 	public void end(TraceStatus status) {
 		complete(status, null);
 	}
 
-	@Override
 	public void exception(TraceStatus status, Exception e) {
 		complete(status, e);
 	}
@@ -48,31 +44,12 @@ public class FieldLogTrace implements LogTrace {
 				addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs,
 				e.toString());
 		}
-
-		releaseTraceId();
-	}
-
-	private void releaseTraceId() {
-		if (traceIdHolder.isFirstLevel()) {
-			traceIdHolder = null;
-		} else {
-			traceIdHolder = traceIdHolder.createPreviousId();
-		}
-	}
-
-	private void syncTraceId() {
-		if (traceIdHolder == null) {
-			traceIdHolder = new TraceId();
-		} else {
-			traceIdHolder = traceIdHolder.createNextId();
-		}
 	}
 
 	private static String addSpace(String prefix, int level) {
 		StringBuilder sb = new StringBuilder();
-
 		for (int i = 0; i < level; i++) {
-			sb.append((i == level - 1) ? "|" + prefix : "|    ");
+			sb.append((i == level - 1) ? "|" + prefix : "|   ");
 		}
 
 		return sb.toString();
